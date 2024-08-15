@@ -1,5 +1,5 @@
 fullname: node-app
-replicaCount: 3
+replicaCount: 5
 namespace: node92
 labels:
   app: node-app
