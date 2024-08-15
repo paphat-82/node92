@@ -18,23 +18,23 @@ image:
   # tag: v2
 
 containers:
-  - name: node-aap
-    image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-    ports:
-      - containerPort: 3000
-    env:
-      - name: TZ
-        value: "Asia/Bangkok"
-    resources: 
-      limits:
-        memory: 3Gi
-        cpu: '1'
-      requests:
-        memory: 50Mi
-        cpu: 50m  
-    livenessProbe: {}
-    startupProbe: {}
-    readinessProbe: {}
+  containerPort: 3000
+
+  env:
+
+    - name: TZ
+      value: "Asia/Bangkok"
+
+  resources: 
+    limits:
+      memory: 3Gi
+      cpu: '1'
+    requests:
+      memory: 50Mi
+      cpu: 50m  
+  livenessProbe: {}
+  startupProbe: {}
+  readinessProbe: {}
 
 service:
   enabled: true
