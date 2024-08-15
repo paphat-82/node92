@@ -39,8 +39,8 @@ const server = http.createServer((req, res) => {
       </style>
     </head>
     <body>
-      <h1>WELCOME to KUBENETES:v9 </h1>
-      <img src="https://images.pexels.com/photos/4603873/pexels-photo-4603873.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Beautiful Thailand">
+      <h1>WELCOME to KUBENETES:v10 </h1>
+      <img src="https://images.pexels.com/photos/4609299/pexels-photo-4609299.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Beautiful Thailand">
     </body>
     </html>
   `);
