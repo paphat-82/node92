@@ -42,12 +42,12 @@ service:
   port: 3000
 
 volumes:
-create_PV: false
- PersistentVolumetemplate: {}
- create_PVC: false
+  create_PV: false
+  PersistentVolumetemplate: {}
+  create_PVC: false
   PersistentVolumeClaimtemplate: {}
- add_volumes: []
-volumeMounts: []
+  add_volumes: []
+  volumeMounts: []
     
 
 secret:
