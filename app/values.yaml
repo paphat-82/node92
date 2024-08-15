@@ -3,10 +3,14 @@ replicaCount: 1
 namespace: node92
 labels:
   app: node-app
-revisionHistoryLimit: 1
+revisionHistoryLimit: 10
 
+# Deployment strategy configuration
 deploymentStrategy:
-  type: Recreate
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
   
 
 image : # Missing colon after key
