@@ -73,3 +73,9 @@ secret:
   encryptedData:
     # Example encrypted data. Replace with actual encrypted data.
     # DB_PASSWORD: AgAnv8aUF032Xw4gJrpr/seEs9o4SdeMxpwbnSDWBuGcx36+VoQ0IM3OWfHQomGf/M4xc0ufGuqF8/UWzNNnWPrWsOvK0ozpSX+xgxiUCfm4WKIvVJoW5dZ9D4X9hSrOSlQ4VKej3xCfDU8R1OJVjQZFPOo8Y2Xq6SSrX+IocMTMC10KQ4gDut0Pb0/QD6eOaQlqf85fIPk5nylc0XHvYbhLyhNp1xIWtVx0UE5LdwsE9PXRHaoeM
+
+serviceAccount:
+  create: false
+  use_existing: false
+  annotations: {}
+  name: ""
