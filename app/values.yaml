@@ -71,6 +71,27 @@ volumes:
 # General values
 fullname: app-node
   
+# Option to create a Persistent Volume Claim
+volumes:
+  create_PVC: true
+
+  # Labels to apply to the Persistent Volume Claim
+  labels:
+    app: app-node
+    environment: production
+
+  # Specifications for the Persistent Volume Claim
+  PersistentVolumeClaimtemplate:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: longhorn
+
+# General values
+fullname: app-node
+namespace: node92
   
 
 secret:
