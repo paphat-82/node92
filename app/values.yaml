@@ -11,30 +11,30 @@ deploymentStrategy:
   rollingUpdate:
     maxSurge: 1
     maxUnavailable: 1
-  
 
-image : # Missing colon after key
+image:
   repository: docker.io/paphat82/node
   tag: latest
- # tag: v2
+  # tag: v2
+
 containers:
-  containerPort: 3000
-
-  env:
-
-    - name: TZ
-      value: "Asia/Bangkok"
-
-  resources: 
-    limits:
-      memory: 3Gi
-      cpu: '1'
-    requests:
-      memory: 50Mi
-      cpu: 50m  
-  livenessProbe: {}
-  startupProbe: {}
-  readinessProbe: {}
+  - name: node-container
+    image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+    ports:
+      - containerPort: 3000
+    env:
+      - name: TZ
+        value: "Asia/Bangkok"
+    resources: 
+      limits:
+        memory: 3Gi
+        cpu: '1'
+      requests:
+        memory: 50Mi
+        cpu: 50m  
+    livenessProbe: {}
+    startupProbe: {}
+    readinessProbe: {}
 
 service:
   enabled: true
@@ -42,15 +42,11 @@ service:
   port: 3000
 
 volumes:
-    create_PV: true
-
-  # Labels to apply to the Persistent Volume
+  create_PV: true
   labels:
     app: app-node
     environment: production
-
-  # Specifications for the Persistent Volume
-  PersistentVolumetemplate:
+  PersistentVolumeTemplate:
     capacity:
       storage: 10Gi
     accessModes:
@@ -59,20 +55,12 @@ volumes:
     hostPath:
       path: /mnt/disks/my-disk
 
-# General values
-fullname: app-node
-  
-# Option to create a Persistent Volume Claim
-volumes:
+volumeClaims:
   create_PVC: true
-
-  # Labels to apply to the Persistent Volume Claim
   labels:
     app: app-node
     environment: production
-
-  # Specifications for the Persistent Volume Claim
-  PersistentVolumeClaimtemplate:
+  PersistentVolumeClaimTemplate:
     accessModes:
       - ReadWriteOnce
     resources:
@@ -80,20 +68,8 @@ volumes:
         storage: 10Gi
     storageClassName: longhorn
 
-# General values
-fullname: app-node
-namespace: node92
-
 secret:
   create: true
   encryptedData:
-  #  DB_PASSWORD: AgAnv8aUF032Xw4gJrpr/seEs9o4SdeMxpwbnSDWBuGcx36+VoQ0IM3OWfHQomGf/M4xc0ufGuqF8/UWzNNnWPrWsOvK0ozpSX+xgxiUCfm4WKIvVJoW5dZ9D4X9hSrOSlQ4VKej3xCfDU8R1OJVjQZFPOo8Y2Xq6SSrX+IocMTMC10KQ4gDut0Pb0/QD6eOaQlqf85fIPk5nylc0XHvYbhLyhNp1xIWtVx0UE5LdwsE9PXRHaoeMwjk8U2QReqa17+ENo1lLxsOqP3A7CxBnsONftv1jmZySyoLBOZnr7PfXl5f4NdIKnuTQDTC5hsyUm8217GMPuhneU1nGz8IPfbKn7NoiROPf0yxz8sDPPy/0uXeZ4JGUNPA6mZ71a2lzTgp/WXKxQXyVK3A6fPcJ7Wb/LWW0mmzD6/rPGOlDk7agj7lnyGSZJiF1qtOJnVae07aWkcYOpyyvcwjCGOge+rLm4+4xx5R6QnrRTHntY6Xk+nMSdCcjC8OAGrsF9jLwksDsmB80ro2QY6BGgOCEoi1VcKK9Rp4cnmd7wI3I8hMPnjCTqof+SXVTOWkqRc6e8udmfc9H082LviIhi/9sTLNlkOjaN5IpcSnpmPAcNnw4QLgCvpJtOhcvXsL49j2wc2wh7nOdR3GoH8zSbWdjR+pvtr40KrxSWQS5eBVMfkCXGp5ghk6v9/F6pEynA4l+zAoEut4aJ7KK35Gd4jPHw==
-   
-    
-
-serviceAccount:
-  create: false
-  use_existing: false
-  annotations: {}
-  name: ""
-
+    # Example encrypted data. Replace with actual encrypted data.
+    # DB_PASSWORD: AgAnv8aUF032Xw4gJrpr/seEs9o4SdeMxpwbnSDWBuGcx36+VoQ0IM3OWfHQomGf/M4xc0ufGuqF8/UWzNNnWPrWsOvK0ozpSX+xgxiUCfm4WKIvVJoW5dZ9D4X9hSrOSlQ4VKej3xCfDU8R1OJVjQZFPOo8Y2Xq6SSrX+IocMTMC10KQ4gDut0Pb0/QD6eOaQlqf85fIPk5nylc0XHvYbhLyhNp1xIWtVx0UE5LdwsE9PXRHaoeM
