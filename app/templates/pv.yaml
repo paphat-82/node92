@@ -1,14 +1,19 @@
-{{- if .Values.volumes.create_PV -}}
+{{- if .Values.volumes.create_PV }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  name: {{ .Values.fullname }}-pv
+  namespace: {{ .Values.namespace }}
   {{- with .Values.labels }}
   labels:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  name: {{ .Values.fullname }}-pv
-{{- with .Values.volumes.PersistentVolumetemplate }}
 spec:
-  {{- toYaml . | nindent 2 }}
-{{- end }}
+  capacity:
+    storage: {{ .Values.volumes.PersistentVolumeTemplate.spec.capacity.storage }}
+  accessModes:
+    {{- toYaml .Values.volumes.PersistentVolumeTemplate.spec.accessModes | nindent 2 }}
+  storageClassName: {{ .Values.volumes.PersistentVolumeTemplate.spec.storageClassName }}
+  hostPath:
+    path: {{ .Values.volumes.PersistentVolumeTemplate.spec.hostPath.path }}
 {{- end }}
