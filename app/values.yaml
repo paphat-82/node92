@@ -42,13 +42,47 @@ service:
   port: 3000
 
 volumes:
-  create_PV: false
-  PersistentVolumetemplate: {}
-  create_PVC: false
-  PersistentVolumeClaimtemplate: {}
-  add_volumes: []
-  volumeMounts: []
-    
+    create_PV: true
+
+  # Labels to apply to the Persistent Volume
+  labels:
+    app: app-node
+    environment: production
+
+  # Specifications for the Persistent Volume
+  PersistentVolumetemplate:
+    capacity:
+      storage: 10Gi
+    accessModes:
+      - ReadWriteOnce
+    storageClassName: longhorn
+    hostPath:
+      path: /mnt/disks/my-disk
+
+# General values
+fullname: app-node
+  
+# Option to create a Persistent Volume Claim
+volumes:
+  create_PVC: true
+
+  # Labels to apply to the Persistent Volume Claim
+  labels:
+    app: app-node
+    environment: production
+
+  # Specifications for the Persistent Volume Claim
+  PersistentVolumeClaimtemplate:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: longhorn
+
+# General values
+fullname: app-node
+namespace: node92
 
 secret:
   create: true
