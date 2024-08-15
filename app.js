@@ -27,7 +27,7 @@ const server = http.createServer((req, res) => {
         }
         h1 {
           font-size: 5em;
-          color: #ff9900; /* Orange color */
+          color: #00ff00; /* Green color */
           margin-bottom: 20px;
         }
         img {
@@ -41,7 +41,7 @@ const server = http.createServer((req, res) => {
       </style>
     </head>
     <body>
-      <h1>WELCOME ThaiLand:v12</h1>
+      <h1>WELCOME ThaiLand:v13</h1>
       <img src="https://images.pexels.com/photos/4609299/pexels-photo-4609299.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Beautiful Thailand">
     </body>
     </html>
