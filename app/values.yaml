@@ -72,7 +72,7 @@ volumeClaims:
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      name: node-app-pvc
+      name: node-app
       labels:
         app: app-node
         environment: production
