@@ -31,7 +31,9 @@ const server = http.createServer((req, res) => {
           margin-bottom: 20px;
         }
         img {
-          max-width: 80%;
+          max-width: 800px; /* Constrain width to 800 pixels */
+          max-height: 700px; /* Constrain height to 700 pixels */
+          width: auto;
           height: auto;
           border: 5px solid #ff9900;
           border-radius: 10px;
@@ -39,7 +41,7 @@ const server = http.createServer((req, res) => {
       </style>
     </head>
     <body>
-      <h1>WELCOME ThaiLand:v11</h1>
+      <h1>WELCOME ThaiLand:v12</h1>
       <img src="https://images.pexels.com/photos/4609299/pexels-photo-4609299.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Beautiful Thailand">
     </body>
     </html>
