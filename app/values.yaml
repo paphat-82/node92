@@ -96,6 +96,7 @@ serviceAccount:
   use_existing: false
   annotations: {}
   name: ""
+  
   namespace: node92
 
 hpa:
