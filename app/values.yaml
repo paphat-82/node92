@@ -81,7 +81,7 @@ volumeClaims:
         - ReadWriteOnce
       resources:
         requests:
-          storage: 10Gi
+          storage: 2Gi
       storageClassName: longhorn
 
 
