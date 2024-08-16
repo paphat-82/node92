@@ -55,7 +55,7 @@ volumes:
         environment: production
     spec:
       capacity:
-        storage: 10Gi
+        storage: 2Gi
       accessModes:
         - ReadWriteOnce
       storageClassName: longhorn
