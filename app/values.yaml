@@ -55,7 +55,7 @@ volumes:
         environment: production
     spec:
       capacity:
-        storage: 3Gi
+        storage: 5Gi
       accessModes:
         - ReadWriteOnce
       storageClassName: longhorn
@@ -81,7 +81,7 @@ volumeClaims:
         - ReadWriteOnce
       resources:
         requests:
-          storage: 3Gi
+          storage: 5Gi
       storageClassName: longhorn
 
 
