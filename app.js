@@ -41,7 +41,7 @@ const server = http.createServer((req, res) => {
       </style>
     </head>
     <body>
-      <h1>WELCOME THAILAND:V48</h1>
+      <h1>WELCOME BURIRAM:V49</h1>
       <img src="https://images.pexels.com/photos/4603157/pexels-photo-4603157.jpeg" alt="Beautiful Thailand">
     </body>
     </html>
