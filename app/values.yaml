@@ -96,3 +96,11 @@ serviceAccount:
   use_existing: false
   annotations: {}
   name: ""
+  namespace: node92
+
+hpa:
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    cpu:
+      averageUtilization: 50
