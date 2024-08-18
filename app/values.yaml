@@ -4,7 +4,9 @@ namespace: node92
 labels:
   app: node-app
 revisionHistoryLimit: 10
-
+annotations:
+  meta.helm.sh/release-name: my-node-app
+  meta.helm.sh/release-namespace: node92
 # Deployment strategy configuration
 deploymentStrategy:
   type: RollingUpdate
