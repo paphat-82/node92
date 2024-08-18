@@ -4,13 +4,11 @@ kind: Service
 metadata:
   namespace: {{ .Values.namespace }}
   name: {{ .Values.fullname }}-svc
-  {{- with .Values.labels }}
-  labels:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
   annotations:
     meta.helm.sh/release-name: {{ .Release.Name }}
     meta.helm.sh/release-namespace: {{ .Release.Namespace }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -18,7 +16,5 @@ spec:
       targetPort: {{ .Values.containers.containerPort }}
       protocol: TCP
   selector:
-    {{- with .Values.labels }}
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
+    {{- toYaml .Values.labels | nindent 4 }}
 {{- end }}
