@@ -62,6 +62,8 @@ volumes:
       labels:
         app: node-app
         environment: production
+        meta.helm.sh/release-name: my-node-app
+        meta.helm.sh/release-namespace: node92  # Add this annotation to match Helm expectations
     spec:
       capacity:
         storage: 3Gi
