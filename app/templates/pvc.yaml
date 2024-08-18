@@ -6,6 +6,9 @@ metadata:
   namespace: {{ .Values.namespace }}
   labels:
     {{- toYaml .Values.volumes.labels | nindent 4 }}
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 spec:
   accessModes:
     {{- toYaml .Values.volumes.PersistentVolumeClaimTemplate.spec.accessModes | nindent 2 }}
