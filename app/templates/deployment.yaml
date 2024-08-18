@@ -3,24 +3,31 @@ kind: Deployment
 metadata:
   namespace: {{ .Values.namespace }}
   name: {{ .Values.fullname }}
-  {{- with .Values.labels }}
   labels:
+    {{- with .Values.labels }}
     {{- toYaml . | nindent 4 }}
+    {{- end }}
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 spec:
-  replicas: {{ $.Values.replicaCount }}
-  revisionHistoryLimit: {{ $.Values.revisionHistoryLimit }}
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   strategy:
-    {{- with $.Values.deploymentStrategy }}
-      {{- toYaml . | nindent 6 }}
+    {{- with .Values.deploymentStrategy }}
+    {{- toYaml . | nindent 6 }}
     {{- end }}
   selector:
     matchLabels:
+      {{- with .Values.labels }}
       {{- toYaml . | nindent 6 }}
+      {{- end }}
   template:
     metadata:
       labels:
+        {{- with .Values.labels }}
         {{- toYaml . | nindent 8 }}
-  {{- end }}
+        {{- end }}
     spec:
       {{- if or .Values.serviceAccount.create .Values.serviceAccount.use_existing }}
       serviceAccountName: {{ .Values.serviceAccount.name }}
@@ -41,13 +48,13 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- if .Values.secret.create }}
-            {{- range $key, $value := .Values.secret.encryptedData }}
+          {{- range $key, $value := .Values.secret.encryptedData }}
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
                   name: {{ $.Values.fullname }}-secrets
                   key: {{ $key }}
-            {{- end }}
+          {{- end }}
           {{- end }}
           {{- with .Values.containers.livenessProbe }}
           livenessProbe:
