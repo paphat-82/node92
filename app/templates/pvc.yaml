@@ -1,18 +1,16 @@
-{{- if .Values.volumeClaims.create_PVC }}
+{{- if .Values.volumes.create_PVC }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.fullname }}-pvc
+  name: {{ .Values.fullname }}
   namespace: {{ .Values.namespace }}
-  {{- with .Values.volumeClaims.labels }}
   labels:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- toYaml .Values.volumes.labels | nindent 4 }}
 spec:
   accessModes:
-    {{- toYaml .Values.volumeClaims.PersistentVolumeClaimTemplate.spec.accessModes | nindent 2 }}
+    {{- toYaml .Values.volumes.PersistentVolumeClaimTemplate.spec.accessModes | nindent 2 }}
   resources:
     requests:
-      storage: {{ .Values.volumeClaims.PersistentVolumeClaimTemplate.spec.resources.requests.storage }}
-  storageClassName: {{ .Values.volumeClaims.PersistentVolumeClaimTemplate.spec.storageClassName }}
+      storage: {{ .Values.volumes.PersistentVolumeClaimTemplate.spec.resources.requests.storage }}
+  storageClassName: {{ .Values.volumes.PersistentVolumeClaimTemplate.spec.storageClassName }}
 {{- end }}
