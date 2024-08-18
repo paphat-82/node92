@@ -119,6 +119,7 @@ serviceAccount:
 # Horizontal Pod Autoscaler (HPA) Configuration  
 
 namespace: node92
+fullname: my-node-app
 
 app:
   deployment:
