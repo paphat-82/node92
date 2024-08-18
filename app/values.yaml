@@ -35,10 +35,18 @@ containers:
   startupProbe: {}
   readinessProbe: {}
 
+namespace: node92
+fullname: node-app
 service:
   enabled: true
   type: ClusterIP
   port: 3000
+containers:
+  containerPort: 3000
+labels:
+  app: node-app
+  environment: production
+
 # Persistent Volume (PV) Configuration
 volumes:
   create_PV: true
