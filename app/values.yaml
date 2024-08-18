@@ -75,14 +75,18 @@ volumes:
 
 
 # Persistent Volume Claim (PVC) Configuration
+namespace: node92
+fullname: node-app
+
 volumeClaims:
   create_PVC: true
   labels:
     app: app-node
     environment: production
+    annotations:
+  meta.helm.sh/release-name: my-node-app
+  meta.helm.sh/release-namespace: node92
   PersistentVolumeClaimTemplate:
-    apiVersion: v1
-    kind: PersistentVolumeClaim
     metadata:
       name: node-app
       labels:
@@ -95,6 +99,7 @@ volumeClaims:
         requests:
           storage: 3Gi
       storageClassName: longhorn
+
 
 # Secret Configuration
 secret:
