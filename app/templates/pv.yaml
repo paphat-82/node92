@@ -2,23 +2,19 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ .Values.volumes.PersistentVolume.metadata.name | default "node-app-pv" }}
-  namespace: {{ .Values.namespace | default "default" }}
+  name: {{ .Values.volumes.PersistentVolumeTemplate.metadata.name | default (printf "%s-pv" .Values.fullname) }}
+  namespace: {{ .Values.namespace }}
   labels:
-    {{- toYaml .Values.volumes.PersistentVolume.metadata.labels | nindent 4 }}
+    {{- toYaml .Values.volumes.PersistentVolumeTemplate.metadata.labels | nindent 4 }}
   annotations:
     meta.helm.sh/release-name: {{ .Release.Name }}
     meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 spec:
   capacity:
-    storage: {{ .Values.volumes.PersistentVolume.spec.capacity.storage | default "1Gi" }}
+    storage: {{ .Values.volumes.PersistentVolumeTemplate.spec.capacity.storage | default "1Gi" }}
   accessModes:
-    {{- if .Values.volumes.PersistentVolume.spec.accessModes }}
-    {{- toYaml .Values.volumes.PersistentVolume.spec.accessModes | nindent 2 }}
-    {{- else }}
-    - ReadWriteOnce
-    {{- end }}
-  storageClassName: {{ .Values.volumes.PersistentVolume.spec.storageClassName | default "manual" }}
+    {{- toYaml .Values.volumes.PersistentVolumeTemplate.spec.accessModes | nindent 2 }}
+  storageClassName: {{ .Values.volumes.PersistentVolumeTemplate.spec.storageClassName | default "standard" }}
   hostPath:
-    path: {{ .Values.volumes.PersistentVolume.spec.hostPath.path | default "/mnt/data" }}
+    path: {{ .Values.volumes.PersistentVolumeTemplate.spec.hostPath.path | default "/mnt/disks/default" }}
 {{- end }}
