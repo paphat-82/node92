@@ -5,6 +5,7 @@ metadata:
   name: {{ .Values.volumes.PersistentVolumeTemplate.metadata.name | default (printf "%s-pv" .Values.fullname) }}
   namespace: {{ .Values.namespace }}
   labels:
+    {{- toYaml .Values.volumes.labels | nindent 4 }}
     {{- toYaml .Values.volumes.PersistentVolumeTemplate.metadata.labels | nindent 4 }}
   annotations:
     meta.helm.sh/release-name: {{ .Release.Name }}
