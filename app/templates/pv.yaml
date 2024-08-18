@@ -5,8 +5,12 @@ metadata:
   name: {{ .Values.volumes.PersistentVolumeTemplate.metadata.name | default (printf "%s-pv" .Values.fullname) }}
   namespace: {{ .Values.namespace }}
   labels:
+    {{- if .Values.volumes.labels }}
     {{- toYaml .Values.volumes.labels | nindent 4 }}
+    {{- end }}
+    {{- if .Values.volumes.PersistentVolumeTemplate.metadata.labels }}
     {{- toYaml .Values.volumes.PersistentVolumeTemplate.metadata.labels | nindent 4 }}
+    {{- end }}
   annotations:
     meta.helm.sh/release-name: {{ .Release.Name }}
     meta.helm.sh/release-namespace: {{ .Release.Namespace }}
@@ -14,7 +18,11 @@ spec:
   capacity:
     storage: {{ .Values.volumes.PersistentVolumeTemplate.spec.capacity.storage | default "1Gi" }}
   accessModes:
+    {{- if .Values.volumes.PersistentVolumeTemplate.spec.accessModes }}
     {{- toYaml .Values.volumes.PersistentVolumeTemplate.spec.accessModes | nindent 2 }}
+    {{- else }}
+    - ReadWriteOnce
+    {{- end }}
   storageClassName: {{ .Values.volumes.PersistentVolumeTemplate.spec.storageClassName | default "standard" }}
   hostPath:
     path: {{ .Values.volumes.PersistentVolumeTemplate.spec.hostPath.path | default "/mnt/disks/default" }}
