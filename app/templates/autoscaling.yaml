@@ -3,6 +3,9 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "app.fullname" . }}-hpa
   namespace: {{ .Values.namespace }}
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
