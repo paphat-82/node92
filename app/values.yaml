@@ -124,12 +124,14 @@ fullname: my-node-app
 app:
   deployment:
     name: node-app
-     annotations:
-  meta.helm.sh/release-name: my-node-app
-  meta.helm.sh/release-namespace: node92
+    annotations:
+      meta.helm.sh/release-name: my-node-app
+      meta.helm.sh/release-namespace: node92
+
 hpa:
   minReplicas: 1
   maxReplicas: 10
   metrics:
     cpu:
       averageUtilization: 40
+
