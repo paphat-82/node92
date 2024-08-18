@@ -5,15 +5,21 @@ metadata:
   name: {{ .Values.fullname }}
   namespace: {{ .Values.namespace }}
   labels:
+    {{- if .Values.volumes.labels }}
     {{- toYaml .Values.volumes.labels | nindent 4 }}
+    {{- end }}
   annotations:
     meta.helm.sh/release-name: {{ .Release.Name }}
     meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 spec:
   accessModes:
+    {{- if .Values.volumes.PersistentVolumeClaimTemplate.spec.accessModes }}
     {{- toYaml .Values.volumes.PersistentVolumeClaimTemplate.spec.accessModes | nindent 2 }}
+    {{- else }}
+    - ReadWriteOnce
+    {{- end }}
   resources:
     requests:
-      storage: {{ .Values.volumes.PersistentVolumeClaimTemplate.spec.resources.requests.storage }}
-  storageClassName: {{ .Values.volumes.PersistentVolumeClaimTemplate.spec.storageClassName }}
+      storage: {{ .Values.volumes.PersistentVolumeClaimTemplate.spec.resources.requests.storage | default "1Gi" }}
+  storageClassName: {{ .Values.volumes.PersistentVolumeClaimTemplate.spec.storageClassName | default "standard" }}
 {{- end }}
