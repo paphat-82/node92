@@ -1,4 +1,4 @@
-{{- if .Values.service.enabled -}}
+{{- if .Values.service.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -8,14 +8,17 @@ metadata:
   labels:
     {{- toYaml . | nindent 4 }}
   {{- end }}
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.containers.containerPort }}
       protocol: TCP
-  {{- with .Values.labels }}
   selector:
+    {{- with .Values.labels }}
     {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- end }}
 {{- end }}
