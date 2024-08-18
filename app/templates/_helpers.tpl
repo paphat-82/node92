@@ -1,8 +1,6 @@
+{{/*
+Return the name of the app
+*/}}
 {{- define "app.fullname" -}}
-{{- printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Release.Name "app" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
-
-{{- define "app.name" -}}
-{{- .Values.nameOverride | default .Chart.Name -}}
-{{- end -}}
-cd
