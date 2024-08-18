@@ -45,6 +45,7 @@ volumes:
   labels:
     app: app-node
     environment: production
+    
   PersistentVolumeTemplate:
     apiVersion: v1
     kind: PersistentVolume
@@ -53,6 +54,9 @@ volumes:
       labels:
         app: app-node
         environment: production
+        meta.helm.sh/release-name: my-node-app
+        meta.helm.sh/release-namespace: node92  # Add this annotation to match Helm expectations
+spec:
     spec:
       capacity:
         storage: 3Gi
