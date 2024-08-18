@@ -48,23 +48,20 @@ labels:
   environment: production
 
 # Persistent Volume (PV) Configuration
+namespace: node92
+fullname: node-app
+
 volumes:
   create_PV: true
   labels:
-    app: app-node
+    app: node-app
     environment: production
-    
   PersistentVolumeTemplate:
-    apiVersion: v1
-    kind: PersistentVolume
     metadata:
       name: node-app-pv
       labels:
-        app: app-node
+        app: node-app
         environment: production
-        meta.helm.sh/release-name: my-node-app
-        meta.helm.sh/release-namespace: node92  # Add this annotation to match Helm expectations
-spec:
     spec:
       capacity:
         storage: 3Gi
@@ -73,6 +70,7 @@ spec:
       storageClassName: longhorn
       hostPath:
         path: /mnt/disks/node-app
+
 
 # Persistent Volume Claim (PVC) Configuration
 volumeClaims:
