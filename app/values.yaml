@@ -27,9 +27,25 @@ containers:
     requests:
       memory: 50Mi
       cpu: 50m
-  livenessProbe: {}
-  startupProbe: {}
-  readinessProbe: {}
+  livenessProbe:
+    httpGet:
+      path: /healthz
+      port: 3000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+  startupProbe:
+    httpGet:
+      path: /ready
+      port: 3000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+  readinessProbe:
+    httpGet:
+      path: /readiness
+      port: 3000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+
 
 service:
   enabled: true
