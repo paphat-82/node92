@@ -20,7 +20,7 @@ spec:
   selector:
     matchLabels:
       {{- with .Values.labels }}
-      {{- toYaml . | nindent 6 }}
+      {{- toYaml . | nindent 4 }}
       {{- end }}
   template:
     metadata:
