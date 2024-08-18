@@ -4,9 +4,8 @@ metadata:
   namespace: {{ .Values.namespace }}
   name: {{ .Values.fullname }}
   labels:
-    {{- with .Values.labels }}
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
+    app: {{ .Values.fullname }}
+    environment: production
   annotations:
     meta.helm.sh/release-name: {{ .Release.Name }}
     meta.helm.sh/release-namespace: {{ .Release.Namespace }}
@@ -14,81 +13,50 @@ spec:
   replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   strategy:
-    {{- with .Values.deploymentStrategy }}
-    {{- toYaml . | nindent 6 }}
-    {{- end }}
+    {{- toYaml .Values.deploymentStrategy | nindent 4 }}
   selector:
     matchLabels:
-      {{- with .Values.labels }}
-      {{- toYaml . | nindent 4 }}
-      {{- end }}
+      app: {{ .Values.fullname }}
+      environment: production
   template:
     metadata:
       labels:
-        {{- with .Values.labels }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
+        app: {{ .Values.fullname }}
+        environment: production
     spec:
-      {{- if or .Values.serviceAccount.create .Values.serviceAccount.use_existing }}
-      serviceAccountName: {{ .Values.serviceAccount.name }}
-      {{- end }}
+      serviceAccountName: {{ .Values.serviceAccount.name | default "default" }}
       containers:
         - name: {{ .Values.fullname }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
-          {{- with .Values.containers.command }}
-          command:
-          {{- toYaml . | nindent 10 }}
-          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.containers.containerPort }}
               protocol: TCP
           env:
-          {{- with .Values.containers.env }}
+            {{- with .Values.containers.env }}
             {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- if .Values.secret.create }}
-          {{- range $key, $value := .Values.secret.encryptedData }}
-            - name: {{ $key }}
-              valueFrom:
-                secretKeyRef:
-                  name: {{ $.Values.fullname }}-secrets
-                  key: {{ $key }}
-          {{- end }}
-          {{- end }}
-          {{- with .Values.containers.livenessProbe }}
+            {{- end }}
           livenessProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.containers.startupProbe }}
+            {{- toYaml .Values.containers.livenessProbe | nindent 12 }}
           startupProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.containers.readinessProbe }}
+            {{- toYaml .Values.containers.startupProbe | nindent 12 }}
           readinessProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          volumeMounts:
-          {{- with .Values.volumes.volumeMounts }}
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.containers.resources }}
+            {{- toYaml .Values.containers.readinessProbe | nindent 12 }}
           resources:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            {{- toYaml .Values.containers.resources | nindent 12 }}
       volumes:
-      {{- with .Values.volumes.add_volumes }}
+        {{- with .Values.volumes.add_volumes }}
         {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.nodeSelector }}
+        {{- end }}
       nodeSelector:
+        {{- with .Values.nodeSelector }}
         {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
+        {{- end }}
       affinity:
+        {{- with .Values.affinity }}
         {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
+        {{- end }}
       tolerations:
+        {{- with .Values.tolerations }}
         {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- end }}
