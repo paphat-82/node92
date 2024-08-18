@@ -13,6 +13,7 @@ deploymentStrategy:
 image:
   repository: docker.io/paphat82/node
   tag: latest
+  pullPolicy: IfNotPresent
 
 containers:
   containerPort: 3000
