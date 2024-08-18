@@ -9,7 +9,7 @@ deploymentStrategy:
     maxUnavailable: 1
 image:
   repository: docker.io/paphat82/node
-  tag: v11
+  tag: latest
   pullPolicy: Always
 containers:
   containerPort: 3000
