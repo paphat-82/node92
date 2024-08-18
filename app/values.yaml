@@ -1,5 +1,5 @@
-fullname: node-app
 namespace: node92
+fullname: node-app
 replicaCount: 2
 revisionHistoryLimit: 10
 deploymentStrategy:
@@ -8,8 +8,8 @@ deploymentStrategy:
     maxSurge: 1
     maxUnavailable: 1
 image:
-    repository: docker.io/paphat82/node
-  tag: latest
+  repository: docker.io/paphat82/node
+  tag: v11
   pullPolicy: Always
 containers:
   containerPort: 3000
@@ -45,8 +45,6 @@ volumes: {}
 nodeSelector: {}
 affinity: {}
 tolerations: []
-
-
 
 service:
   enabled: true
