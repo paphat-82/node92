@@ -4,10 +4,8 @@ kind: PersistentVolume
 metadata:
   name: {{ .Values.fullname }}-pv
   namespace: {{ .Values.namespace }}
-  {{- with .Values.labels }}
   labels:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- toYaml .Values.volumes.labels | nindent 4 }}
   annotations:
     meta.helm.sh/release-name: {{ .Release.Name }}
     meta.helm.sh/release-namespace: {{ .Release.Namespace }}
